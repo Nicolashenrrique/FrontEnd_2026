@@ -46,19 +46,19 @@
       background-repeat: no-repeat;
     "
   >
-    <!-- Estrelas animadas (aparecem à noite) -->
+    <!-- Estrelas -->
     <div id="stars"></div>
 
-    <!-- Topo: avatar + nome + toggle -->
+    
     <div class="w-full flex items-center justify-between p-4 gap-3 z-10">
       <div class="flex items-center gap-3">
-        <!-- Avatar -->
+        
         <div class="avatar">
           <div class="w-14 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 bg-white/60 shadow">
             <img id="avatarImg" src="normal.png" alt="avatar"/>
           </div>
         </div>
-        <!-- Nome -->
+        <!--Personalizar o nome do bixo-->
         <input
           type="text"
           id="nomeCriatura"
@@ -68,7 +68,7 @@
         />
       </div>
 
-      <!-- Toggle dia / noite -->
+     
       <label class="flex items-center gap-2 cursor-pointer bg-white/50 backdrop-blur-sm px-3 py-2 rounded-full shadow">
         <span class="text-base">☀️</span>
         <input
@@ -81,16 +81,16 @@
       </label>
     </div>
 
-    <!-- Criatura + status -->
+   
     <div class="flex flex-col items-center flex-1 justify-center w-full px-4 z-10">
 
-      <!-- Barra de fome -->
+      <!-- Barra que faz a indicação de fome -->
       <div class="flex items-center gap-2 mb-4 bg-white/60 backdrop-blur-sm px-4 py-2 rounded-full shadow">
         <span class="text-sm font-semibold text-gray-600">🍽️ Fome</span>
         <progress id="barraFome" class="progress progress-warning w-36" value="0" max="100"></progress>
       </div>
 
-      <!-- Imagem principal -->
+      <!-- bixo normal -->
       <img
         id="mainImage"
         src="normal.png"
@@ -98,7 +98,7 @@
         class="w-full max-w-[450px] h-auto"
       />
 
-      <!-- Badge de status -->
+      <!-- status -->
       <div class="mt-4">
         <span id="statusBadge" class="badge badge-primary badge-lg font-semibold px-5 py-3 text-base shadow">
           😊 Normal
@@ -121,10 +121,36 @@
     </div>
 
     <!-- Rodapé -->
-    <div class="w-full flex justify-center pb-3 z-10">
-      <p class="text-xs text-white/70 drop-shadow">🌿 Cuide bem do seu pet!</p>
-    </div>
+<div class="w-full flex justify-center items-center gap-4 pb-3 z-10">
+  <p class="text-xs text-white/70 drop-shadow">🌿 Cuide bem do seu pet!</p>
+  <button
+    onclick="toggleFoto()"
+    class="btn btn-sm btn-primary rounded-full shadow-lg px-5 font-semibold"
+  >
+    📸 gostosinho
+  </button>
+</div>
+
+
+<div id="fotoContainer" class="hidden fixed inset-0 flex items-center justify-center bg-black/60 z-50" onclick="toggleFoto()">
+  <div class="relative">
+    <img
+      src="gostosinho.jpeg"
+      alt="Foto"
+      class="max-w-[90vw] max-h-[85vh] rounded-2xl shadow-2xl"
+    />
+    <p class="text-center text-white/70 text-xs mt-2">Clique em qualquer lugar para fechar</p>
+  </div>
+</div>
 
     <script src="script.js"></script>
+
+    
+    <script>
+      function toggleFoto() {
+        const container = document.getElementById("fotoContainer");
+        container.classList.toggle("hidden");
+      }
+    </script>
   </body>
 </html>
