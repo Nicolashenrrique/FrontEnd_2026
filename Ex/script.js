@@ -4,7 +4,7 @@ const btn        = document.getElementById("btnComida");
 const badge      = document.getElementById("statusBadge");
 const barraFome  = document.getElementById("barraFome");
  
-// ─── Estados ─────────────────────────────────────────────────
+
 const estados = {
     normal:     "normal.png",
     puto:       "Raivaa.png",
@@ -13,11 +13,11 @@ const estados = {
     alimentado: "normal.png",
 };
  
-// ─── Fundos ───────────────────────────────────────────────────
+// ─── tela de fundo//
 const fundoDia   = "dia.png";
 const fundoNoite = "background_noite.jpg";
  
-// ─── Variáveis de controle ────────────────────────────────────
+
 let contador     = 0;
 const LIMITE_FOME  = 10;
 const LIMITE_MORTE = 20;
@@ -29,7 +29,7 @@ let horaVirtual  = 0;
 let modoManual   = false;
 let morto        = false;
  
-// ─── Controlador de fome ─────────────────────────────────────
+
 function controlador() {
     if (intervalo) clearInterval(intervalo);
  
@@ -37,7 +37,7 @@ function controlador() {
         if (morto) return;
  
         const src = cria.src;
-        if (src.includes("comendo") || src.includes("alimentado")) return;
+        if (src.includes("comendo") || src.includes("normal")) return;
  
         contador++;
         console.log("Fome:", contador);
@@ -56,7 +56,7 @@ function controlador() {
     }, 1000);
 }
  
-// ─── Morrer ──────────────────────────────────────────────────
+// ─── MOrreu//
 function morrer() {
     morto = true;
     clearInterval(intervalo);
@@ -66,10 +66,10 @@ function morrer() {
     console.log("Pet morreu.");
 }
  
-// ─── Alimentar ───────────────────────────────────────────────
+// ─── Alimentar //
 function alimentar() {
  
-    // ── Ressuscitar ──────────────────────────────────────────
+    // ── Ressuscitar//
     if (morto) {
         morto = false;
         contador = 0;
@@ -78,7 +78,7 @@ function alimentar() {
         setCriatura(estados.alimentado);
         setStatus("🌟 Ressuscitou!", "badge-accent");
  
-        controlador(); // reinicia o ciclo de fome
+        controlador(); /
  
         time_out = setTimeout(() => {
             setCriatura(estados.normal);
@@ -88,7 +88,7 @@ function alimentar() {
         return;
     }
  
-    // ── Alimentar normal ─────────────────────────────────────
+    
     contador = 0;
     barraFome.value = 0;
     setCriatura(estados.comendo);
@@ -109,7 +109,6 @@ function alimentar() {
     }, 1200);
 }
  
-// ─── Helpers visuais ─────────────────────────────────────────
 function setCriatura(src) {
     cria.style.opacity = "0";
     setTimeout(() => {
@@ -124,7 +123,7 @@ function setStatus(texto, classe) {
     badge.className   = `badge badge-lg font-semibold px-5 py-3 text-base shadow ${classe}`;
 }
  
-// ─── Ciclo dia / noite automático ────────────────────────────
+// ───  dia e noite automático //
 function atualizarFundo() {
     setInterval(() => {
         if (modoManual) return;
@@ -139,7 +138,7 @@ function atualizarFundo() {
     }, 500);
 }
  
-// ─── Toggle manual (chamado pelo HTML) ───────────────────────
+// ─── LOgica que altera se é dia ou é noite ────────────
 function alternarModoManual(isNoite) {
     modoManual = true;
     if (isNoite) {
@@ -160,7 +159,7 @@ function aplicarNoite() {
     mostrarEstrelas();
 }
  
-// ─── Estrelas animadas ────────────────────────────────────────
+// ─── Animação das estrelas //
 function criarEstrelas() {
     const container = document.getElementById("stars");
     if (!container) return;
@@ -185,7 +184,7 @@ function esconderEstrelas() {
     document.querySelectorAll(".star").forEach(s => s.style.display = "none");
 }
  
-// ─── Inicialização ────────────────────────────────────────────
+//-iniciar as funções//
 criarEstrelas();
 controlador();
 atualizarFundo()
