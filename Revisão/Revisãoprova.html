@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Caixa livre</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <style> 
+            .topo{
+                background-color: #ffc107;
+                text-align: center;
+                font-size: 42px;
+                font-weight: bold;
+                border: 4px solid #01026b;
+            }
+            .painel{
+                background: #404042;
+                padding: 10px;
+                margin-bottom: 10px;
+                border: 3px solid #000;
+            }
+        </style>
+    </head>
+    <body class="bg-primary bg-gradient">
+        <div id="Alert"><br></div>
+
+        <div class="container mt-3">
+            <div class="topo">Caixa Livre</div>
+        
+            <div class="row mt3">
+                <div class="col-md-7">
+                    <h3 class="text-white"><span class="badge text-bg-primary"> SUA COMPRA 🛒</span></h3>
+                    <ul id="lista" class="list-group lista"></ul>
+                </div>
+
+                <div class="col-md-5">
+                    <div class="painel" style="color: white";> Total: R$ <span id="total">0.00</span></div>
+                    
+                    <div class="painel">
+                        <label style="color: white;"> Código de Barras </label>
+                        <input type="text" id="cod" class="form-control"/>
+                    </div>
+
+                    <div class="painel">
+                        <label style="color: white;"> Quantidade </label>
+                        <input type="text" id="qtd" class="form-control" value="1"/>
+                    </div>
+                    
+                    <div class="painel">
+                        <label style="color: white;"> Quantidade X Valor </label>
+                        <div class="alert alert-light" role="alert"><span id="qtdXvl">0.00</span></div>
+                    </div>
+
+                    <button class="btn btn-success w-100" onclick="addProduto()">Adicionar Produto</button>
+                </div>
+
+            </div>
+
+        </div>
+    </body>
+    <script src="script.js"></script>
+</html>-
