@@ -21,7 +21,6 @@ function revelar() {
 
     elementosTexto.forEach(function(elemento) {
         elemento.classList.remove('placeholder', 'col-4', 'col-6');
-        // Aplica a estilização de texto exigida na prova
         elemento.classList.add('card-text');
     });
 
