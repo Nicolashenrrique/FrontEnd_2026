@@ -1,0 +1,102 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f4f7f6;
+    color: #333;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.card-grupo {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.card-grupo h2 {
+    color: #2980b9;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #ecf0f1;
+    width: 100%;
+    padding-bottom: 5px;
+}
+
+.card-grupo h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: #7f8c8d;
+}
+
+.card-grupo ul {
+    list-style: none;
+    margin-bottom: 20px;
+}
+
+.card-grupo li {
+    padding: 5px 0;
+    border-left: 3px solid #3498db;
+    padding-left: 10px;
+    margin-bottom: 5px;
+    background-color: #f9f9f9;
+}
+
+details {
+    background-color: #ebf5fb;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+}
+
+summary {
+    font-weight: bold;
+    color: #2980b9;
+}
+
+details p {
+    margin-top: 10px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+#btn-proximo {
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #3498db;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        #btn-proximo:hover {
+            background-color: #2980b9;
+        }
