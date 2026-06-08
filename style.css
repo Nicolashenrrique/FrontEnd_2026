@@ -1,0 +1,77 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 20px;
+  background-color: #121213;
+  color: #fff;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+}
+
+.row {
+  display: flex;
+  gap: 5px;
+}
+
+.tile {
+  width: 60px;
+  height: 60px;
+  border: 2px solid #3a3a3c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: #121213; /* Fundo base para a transição */
+}
+
+.status {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* Classes de Animação */
+.tile.correct { animation: flipCorrect 0.6s ease forwards; }
+.tile.present { animation: flipPresent 0.6s ease forwards; }
+.tile.absent  { animation: flipAbsent 0.6s ease forwards; }
+
+/* Lógica do giro 3D (Flip) */
+@keyframes flipCorrect {
+  0%   { transform: rotateX(0); background-color: #121213; border-color: #3a3a3c; }
+  49%  { transform: rotateX(90deg); background-color: #121213; border-color: #3a3a3c; }
+  50%  { transform: rotateX(90deg); background-color: #538d4e; border-color: #538d4e; }
+  100% { transform: rotateX(0); background-color: #538d4e; border-color: #538d4e; }
+}
+
+@keyframes flipPresent {
+  0%   { transform: rotateX(0); background-color: #121213; border-color: #3a3a3c; }
+  49%  { transform: rotateX(90deg); background-color: #121213; border-color: #3a3a3c; }
+  50%  { transform: rotateX(90deg); background-color: #b59f3b; border-color: #b59f3b; }
+  100% { transform: rotateX(0); background-color: #b59f3b; border-color: #b59f3b; }
+}
+
+@keyframes flipAbsent {
+  0%   { transform: rotateX(0); background-color: #121213; border-color: #3a3a3c; }
+  49%  { transform: rotateX(90deg); background-color: #121213; border-color: #3a3a3c; }
+  50%  { transform: rotateX(90deg); background-color: #3a3a3c; border-color: #3a3a3c; }
+  100% { transform: rotateX(0); background-color: #3a3a3c; border-color: #3a3a3c; }
+}

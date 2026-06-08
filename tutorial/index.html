@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial: Criando o Termo com React</title>
+    <link rel="stylesheet" href="tutorial-style.css">
+</head>
+<body>
+    <div class="nav-bar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="4 17 10 11 4 5"></polyline>
+                    <line x1="12" y1="19" x2="20" y2="19"></line>
+                </svg>
+                <span>DevGames <span class="badge">Docs</span></span>
+            </div>
+            <div class="nav-links">
+                <a href="#" class="active">Tutoriais</a>
+                <a href="#">Componentes</a>
+                <a href="#">Projetos</a>
+                <a href="#">GitHub</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h3>TRILHA REACT INICIANTE</h3>
+                <ul>
+                    <li><a href="#">1. Introdução aos Hooks</a></li>
+                    <li><a href="#">2. Componentização</a></li>
+                    <li><a href="#">3. Consumo de APIs</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>CLONES DE JOGOS</h3>
+                <ul>
+                    <li><a href="#">Jogo da Velha</a></li>
+                    <li><a href="#" class="active-link">Termo (Wordle)</a></li>
+                    <li><a href="#">Flappy Bird</a></li>
+                    <li><a href="#">Tetris Clássico</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="content">
+            <div class="breadcrumbs">Tutoriais &gt; Clones de Jogos &gt; Termo</div>
+            <h1>Clone do Termo Avançado</h1>
+            <p class="subtitle">Aprenda a construir um clone completo do famoso jogo de palavras <strong>Termo</strong> utilizando React, requisições de APIs (JSON) e animações CSS 3D.</p>
+            
+            <p>Neste tutorial, dividiremos nosso projeto em pequenos componentes independentes e aprenderemos a gerenciar estados complexos, lidar com eventos de teclado globais, sortear palavras de um banco de dados e aplicar animações sequenciais.</p>
+
+            <div class="callout callout-learn">
+                <h4>🎯 O que você vai aprender hoje:</h4>
+                <ul>
+                    <li>Utilizar o <code>fetch API</code> e o hook <code>useEffect</code> para consumir um arquivo JSON externo.</li>
+                    <li>Estruturar uma grade matriz (6x5) que lida com estados condicionais e efeitos em cascata.</li>
+                    <li>Implementar animações CSS 3D (Flip) controladas dinamicamente pelo React.</li>
+                </ul>
+            </div>
+
+            <h2>Passo 1: Banco de Palavras (JSON)</h2>
+            <p>Para não deixarmos nossa palavra "chumbada" no código, crie um arquivo chamado <code>palavras.json</code> na raiz do seu projeto. Ele servirá como nossa pequena API de palavras.</p>
+            
+            <div class="code-header">palavras.json</div>
+            <pre><code>[
+  "REACT", "TERMO", "PLACA", "VETOR", "MUNDO", 
+  "TEMPO", "PORTA", "NUVEM", "LIVRO", "FESTA"
+]</code></pre>
+
+            <h2>Passo 2: Configuração e Importações</h2>
+            <p>Para o React rodar diretamente no navegador precisamos importar o <strong>Babel</strong>. Ele é um tradutor que converte nosso código JSX para JavaScript comum. Crie seu <code>index.html</code> base:</p>
+            
+            <div class="code-header">index.html</div>
+            <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Termo Clone&lt;/title&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+  
+  &lt;!-- React & ReactDOM --&gt;
+  &lt;script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin&gt;&lt;/script&gt;
+  &lt;script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin&gt;&lt;/script&gt;
+  &lt;!-- Babel --&gt;
+  &lt;script src="https://unpkg.com/@babel/standalone/babel.min.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div id="root"&gt;&lt;/div&gt;
+  &lt;script type="text/babel" src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+            <h2>Passo 3: Animações CSS 3D (Keyframes)</h2>
+            <p>No nosso <code>style.css</code>, além da estrutura da grade, vamos criar animações <code>@keyframes</code> que giram as letras em 90 graus (eixo X) e alteram suas cores exatamente na metade da animação, criando o efeito de revelação.</p>
+
+            <div class="code-header">style.css (Trecho de Animação)</div>
+            <pre><code>.tile {
+  width: 60px; height: 60px;
+  border: 2px solid #3a3a3c;
+  display: flex; justify-content: center; align-items: center;
+  font-size: 2rem; font-weight: bold; text-transform: uppercase;
+  background-color: #121213; 
+}
+
+.tile.correct { animation: flipCorrect 0.6s ease forwards; }
+.tile.present { animation: flipPresent 0.6s ease forwards; }
+.tile.absent  { animation: flipAbsent 0.6s ease forwards; }
+
+@keyframes flipCorrect {
+  0%   { transform: rotateX(0); background-color: #121213; border-color: #3a3a3c; }
+  49%  { transform: rotateX(90deg); background-color: #121213; border-color: #3a3a3c; }
+  50%  { transform: rotateX(90deg); background-color: #538d4e; border-color: #538d4e; }
+  100% { transform: rotateX(0); background-color: #538d4e; border-color: #538d4e; }
+}
+/* Repita a lógica para flipPresent (#b59f3b) e flipAbsent (#3a3a3c) */</code></pre>
+
+            <h2>Passo 4: Componentes com Efeito Cascata</h2>
+            <p>No React, o componente <code>Tile</code> receberá a propriedade <code>position</code> (de 0 a 4). Vamos multiplicar essa posição por 0.2 segundos para criar um <code>animation-delay</code>. Isso faz com que as letras girem uma de cada vez!</p>
+
+            <div class="code-header">script.js (Componentes)</div>
+            <pre><code>const { useState, useEffect } = React;
+
+function Tile({ letter, status, position }) {
+  const className = `tile ${status ? status : ''}`;
+  // Cria o delay em cascata: 0s, 0.2s, 0.4s, 0.6s, 0.8s
+  const style = status ? { animationDelay: `${position * 0.2}s` } : {};
+  return &lt;div className={className} style={style}&gt;{letter}&lt;/div&gt;;
+}
+
+function Row({ guess, isFinal, solution }) {
+  const tiles = [];
+  for (let i = 0; i &lt; 5; i++) {
+    const letter = guess[i] || '';
+    let status = '';
+    
+    if (isFinal && solution) {
+      if (letter === solution[i]) status = 'correct';
+      else if (solution.includes(letter)) status = 'present';
+      else status = 'absent';
+    }
+    tiles.push(&lt;Tile key={i} letter={letter} status={status} position={i} /&gt;);
+  }
+  return &lt;div className="row"&gt;{tiles}&lt;/div&gt;;
+}</code></pre>
+
+            <h2>Passo 5: Consumindo o JSON e Lógica Principal</h2>
+            <p>No componente <code>Game</code>, usamos o <code>fetch</code> para sortear a palavra. Note que adicionamos um <strong>tratamento de erro</strong> (Fallback) que define a palavra como "REACT" caso o arquivo JSON falhe em carregar.</p>
+
+            <div class="code-header">script.js (Lógica Final)</div>
+            <pre><code>function Game() {
+  const [guesses, setGuesses] = useState([]);
+  const [currentGuess, setCurrentGuess] = useState("");
+  const [isGameOver, setIsGameOver] = useState(false);
+  const [solution, setSolution] = useState(""); 
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  // Busca as palavras do JSON com fallback de segurança
+  useEffect(() =&gt; {
+    fetch('palavras.json')
+      .then(res =&gt; {
+        if (!res.ok) throw new Error("Falha no JSON");
+        return res.json();
+      })
+      .then(data =&gt; {
+        const randomWord = data[Math.floor(Math.random() * data.length)];
+        setSolution(randomWord.toUpperCase());
+      })
+      .catch(err =&gt; setSolution("REACT")); // Segurança
+  }, []);
+
+  // Escuta os eventos do teclado
+  useEffect(() =&gt; {
+    function handleKeyDown(e) {
+      if (isGameOver || isAnimating || !solution) return; 
+
+      if (e.key === 'Enter') {
+        if (currentGuess.length === 5) {
+          const newGuesses = [...guesses, currentGuess.toUpperCase()];
+          setGuesses(newGuesses);
+          setCurrentGuess("");
+          
+          if (currentGuess.toUpperCase() === solution || newGuesses.length === 6) {
+            setIsAnimating(true); // Trava o teclado
+            setTimeout(() =&gt; setIsGameOver(true), 1500); // Aguarda o fim da animação
+          }
+        }
+        return;
+      }
+
+      if (e.key === 'Backspace') {
+        setCurrentGuess(currentGuess.slice(0, -1)); return;
+      }
+
+      if (/^[A-Za-z]$/.test(e.key) && currentGuess.length &lt; 5) {
+        setCurrentGuess(currentGuess + e.key.toUpperCase());
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () =&gt; window.removeEventListener('keydown', handleKeyDown);
+  }, [currentGuess, isGameOver, isAnimating, guesses, solution]); 
+
+  // Calcula as linhas vazias para manter o tabuleiro sempre com 6 linhas
+  const totalRows = guesses.length + (!isGameOver && guesses.length &lt; 6 ? 1 : 0);
+  const empties = Array.from(Array(Math.max(0, 6 - totalRows)));
+
+  return (
+    &lt;div className="game-info"&gt;
+      &lt;h1&gt;Clone do Termo&lt;/h1&gt;
+      &lt;div className="board"&gt;
+        {guesses.map((g, i) =&gt; &lt;Row key={`guess-${i}`} guess={g} isFinal={true} solution={solution} /&gt;)}
+        {!isGameOver && guesses.length &lt; 6 && &lt;Row guess={currentGuess} isFinal={false} solution={solution} /&gt;}
+        {empties.map((_, i) =&gt; &lt;Row key={`empty-${i}`} guess="" isFinal={false} solution={solution} /&gt;)}
+      &lt;/div&gt;
+      
+      {isGameOver && (
+        &lt;p className="status"&gt;
+          {guesses.includes(solution) ? '🏆 Você Venceu!' : `Fim de Jogo! A palavra era ${solution}`}
+        &lt;/p&gt;
+      )}
+    &lt;/div&gt;
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(&lt;Game /&gt;);</code></pre>
+
+            <div class="callout callout-pro">
+                <h4>🚀 Conclusão</h4>
+                <p>O seu código agora possui uma arquitetura robusta e livre de bugs. Você gerenciou estados dependentes, travou a digitação durante a animação e integrou consumo de dados com fallback de segurança. Divirta-se!</p>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

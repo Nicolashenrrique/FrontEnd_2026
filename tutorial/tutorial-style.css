@@ -1,0 +1,272 @@
+/* Novo Tema: Slate & Violet (Estilo Tailwind/Vite Docs) */
+:root {
+    --bg-primary: #0f172a;       /* Fundo principal (Slate 900) */
+    --bg-secondary: #1e293b;     /* Fundo secundário (Slate 800) */
+    --text-main: #f8fafc;        /* Texto claro (Slate 50) */
+    --text-muted: #94a3b8;       /* Texto suave (Slate 400) */
+    --primary: #8b5cf6;          /* Cor de destaque principal (Violeta) */
+    --primary-hover: #a855f7;    /* Violeta mais claro */
+    --border-color: #334155;     /* Bordas (Slate 700) */
+    --code-bg: #020617;          /* Fundo do código ultra escuro */
+    --callout-bg: #1e1b4b;       /* Fundo do callout (Mistura de Índigo escuro) */
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-main);
+    margin: 0;
+    padding: 0;
+    line-height: 1.7;
+}
+
+/* Navbar Style */
+.nav-bar {
+    background-color: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 0 24px;
+    height: 64px;
+}
+
+.nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    color: #fff;
+}
+
+.badge {
+    font-size: 0.7rem;
+    background-color: var(--primary);
+    color: #fff;
+    padding: 3px 8px;
+    border-radius: 99px;
+    margin-left: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: bold;
+}
+
+.nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    margin-left: 28px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: var(--text-main);
+}
+
+/* App Container Layout */
+.main-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 280px;
+    padding: 40px 24px;
+    border-right: 1px solid var(--border-color);
+    position: sticky;
+    top: 64px;
+    height: calc(100vh - 64px);
+    overflow-y: auto;
+}
+
+.sidebar-section {
+    margin-bottom: 32px;
+}
+
+.sidebar-section h3 {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    margin-bottom: 16px;
+    font-weight: 700;
+}
+
+.sidebar-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-section li {
+    margin-bottom: 6px;
+}
+
+.sidebar-section a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    display: block;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.sidebar-section a:hover {
+    background-color: var(--bg-secondary);
+    color: var(--text-main);
+    transform: translateX(4px);
+}
+
+.sidebar-section a.active-link {
+    background-color: var(--primary);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* Content Area */
+.content {
+    flex: 1;
+    padding: 48px 80px;
+    max-width: 900px;
+}
+
+.breadcrumbs {
+    font-size: 0.85rem;
+    color: var(--primary);
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin-top: 0;
+    margin-bottom: 16px;
+    letter-spacing: -0.03em;
+    color: #fff;
+}
+
+.subtitle {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+}
+
+h2 {
+    font-size: 1.8rem;
+    color: #fff;
+    margin-top: 56px;
+    margin-bottom: 24px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+code {
+    font-family: "Fira Code", Consolas, Monaco, monospace;
+    background-color: var(--bg-secondary);
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.9em;
+    color: #e2e8f0;
+}
+
+/* Code Blocks - Estilo Janela de Mac */
+.code-header {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-bottom: none;
+    padding: 12px 20px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    margin-top: 32px;
+    font-family: "Fira Code", monospace;
+    display: flex;
+    align-items: center;
+}
+
+/* Os botões de fechar, minimizar, maximizar */
+.code-header::before {
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #ef4444; /* Vermelho */
+    box-shadow: 20px 0 0 #eab308, 40px 0 0 #22c55e; /* Amarelo e Verde */
+    margin-right: 60px;
+}
+
+pre {
+    background-color: var(--code-bg);
+    border: 1px solid var(--border-color);
+    padding: 20px;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    overflow-x: auto;
+    margin: 0 0 32px 0;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+}
+
+pre code {
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    color: #cbd5e1;
+    font-size: 0.9rem;
+}
+
+/* Callouts Modernos */
+.callout {
+    background-color: var(--callout-bg);
+    border-left: 4px solid var(--primary);
+    padding: 24px;
+    border-radius: 0 12px 12px 0;
+    margin: 40px 0;
+}
+
+.callout h4 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: var(--primary-hover);
+    font-size: 1.1rem;
+}
+
+.callout ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.callout li {
+    margin-bottom: 8px;
+}
+
+.callout-pro {
+    border-left-color: #10b981; /* Verde esmeralda */
+    background-color: rgba(16, 185, 129, 0.1);
+}
+.callout-pro h4 {
+    color: #34d399;
+}
